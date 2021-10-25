@@ -1,10 +1,30 @@
+require("dotenv").config();
 var createError = require('http-errors');
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const mongoose = require("mongoose");
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// server
+const port = 3001;
+
+mongoose
+  .connect(process.env.MONGO_DB, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      // useCreateIndex: true,
+  })
+  .then(() => {
+      app.listen(port, () => {
+        console.log(`Server connected on ${port}`);
+        console.log(`MongoDB Connected!`);
+      });
+  })
+  .catch((e) => {
+      console.log(e);
+  });
+
+const todoRouter = require("./routes/todo/todoRouter");
 
 var app = express();
 
@@ -13,8 +33,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api/todos', todoRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -4,6 +4,7 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require("mongoose");
+var cors = require("cors");
 
 // server
 const port = 3001;
@@ -15,7 +16,7 @@ mongoose
       // useCreateIndex: true,
   })
   .then(() => {
-      app.listen(port, () => {
+      app.listen(() => {
         console.log(`Server connected on ${port}`);
         console.log(`MongoDB Connected!`);
       });
@@ -28,6 +29,7 @@ const todoRouter = require("./routes/todo/todoRouter");
 
 var app = express();
 
+app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

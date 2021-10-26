@@ -3,9 +3,11 @@ const mongoose = require("mongoose");
 const todoSchema = new mongoose.Schema({
    todo: {
       type: String,
+      unique: true,
    },
    isDone: {
       type: Boolean,
+      default: false,
    },
    dateAdded: {
       type: Date,

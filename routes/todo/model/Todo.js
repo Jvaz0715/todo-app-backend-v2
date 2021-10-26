@@ -11,7 +11,7 @@ const todoSchema = new mongoose.Schema({
    },
    dateAdded: {
       type: Date,
-      default: Date.now(),
+      default: () => Date.now(),
    }
 });
 

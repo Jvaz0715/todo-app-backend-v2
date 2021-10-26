@@ -5,7 +5,7 @@ async function getAllTodos(req, res) {
       let allTodos = await Todo.find({});
       res.json({ payload: allTodos });
    } catch(e) {
-      res.status(500).json({message: e.message, error: error});
+      res.status(500).json({message: e.message, error: e});
    }
 };
 
@@ -20,7 +20,7 @@ async function createTodo(req, res) {
       res.json({payload: savedTodo})
 
    } catch(e) {
-      res.status(500).json({message: e.message, error: error});
+      res.status(500).json({message: e.message, error: e});
    }
 };
 
@@ -30,7 +30,7 @@ async function updateTodo(req, res) {
 
       res.json({ payload: updatedTodo})
    } catch(e) {
-      res.status(500).json({message: e.message, error: error});
+      res.status(500).json({message: e.message, error: e});
    }
 };
 
@@ -40,7 +40,7 @@ async function deleteTodo(req, res) {
 
       res.json({ payload: deletedTodo});
    } catch(e) {
-      res.status(500).json({message: e.message, error: error});
+      res.status(500).json({message: e.message, error: e});
    }
 };
 

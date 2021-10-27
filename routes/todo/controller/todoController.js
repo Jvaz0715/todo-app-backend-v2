@@ -68,7 +68,30 @@ async function sortTodoByDone(req, res) {
    } catch(e) {
       res.status(500).json({ message: e.message, error: e });
    }
-}
+};
+
+// REFACTOR: sorting by done and date separately is fine but consider doing it in one function
+// *** MUST REVISIT TO BETTER UNDERSTAND LOGIC ***
+async function sort(req, res) {
+   try {
+      let isDone = req.query.isDone;
+      let isDoneOrder = isDone === "true" ? true : false;
+
+      let sortByDate = req.query.sort ? req.query.sort : null;
+      let finalSort;
+      if (!sortByDate) {
+         finalSort = null;
+      } else {
+         finalSort = sortByDate === "asc" ? 1 : -1;
+      }
+
+      let foundTodo = await Todo.find({isDone: isDoneOrder}.sort({dateAdded: finalSort}))
+      res.json({ payload: foundTodo })
+
+   } catch(e){
+      console.log(e);
+   }
+};
 
 module.exports = {
    getAllTodos,

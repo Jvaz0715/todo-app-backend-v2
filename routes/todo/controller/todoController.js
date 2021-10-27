@@ -57,6 +57,17 @@ async function sortTodoByDate(req, res) {
    } catch(e){
       res.status(500).json({ message: e.message, error: e });
    }
+};
+
+async function sortTodoByDone(req, res) {
+   try{
+      let isDone = req.query.isDone;
+      let isDoneOrder = isDone === "true" ? true : false;
+      let foundTodos = await Todo.find({isDone: isDoneOrder});
+      res.json({payload: foundTodos})
+   } catch(e) {
+      res.status(500).json({ message: e.message, error: e });
+   }
 }
 
 module.exports = {
@@ -65,4 +76,5 @@ module.exports = {
    updateTodo,
    deleteTodo,
    sortTodoByDate,
+   sortTodoByDone,
 }

@@ -7,6 +7,7 @@ const {
    updateTodo,
    deleteTodo,
    sortTodoByDate,
+   sortTodoByDone,
 } = require("./controller/todoController")
 
 /* GET home page. */
@@ -18,6 +19,7 @@ router.get('/get-all-todos', getAllTodos);
 
 // TODO: Brush up on sort in mongodb using req.query
 router.get("/get-todos-by-sort", sortTodoByDate);
+router.get("/get-todos-by-done", sortTodoByDone);
 
 router.post('/create-todo', createTodo);
 

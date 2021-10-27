@@ -44,9 +44,25 @@ async function deleteTodo(req, res) {
    }
 };
 
+// TODO: Brush up on sort in mongodb using req.query
+async function sortTodoByDate(req, res) {
+   try{
+      let sort = req.query.sort;
+      let sortOrder = sort === "desc" ? -1 : 1;
+      
+      let foundTodosSorted = await Todo.find({}).sort({dateAdded: sortOrder})
+
+      res.json({payload: foundTodosSorted})
+
+   } catch(e){
+      res.status(500).json({ message: e.message, error: e });
+   }
+}
+
 module.exports = {
    getAllTodos,
    createTodo,
    updateTodo,
-   deleteTodo
+   deleteTodo,
+   sortTodoByDate,
 }
